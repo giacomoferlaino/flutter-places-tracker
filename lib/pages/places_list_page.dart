@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import './add_place_page.dart';
+import '../providers/places.dart';
 
 class PlacesListPage extends StatelessWidget {
   @override
@@ -17,8 +19,24 @@ class PlacesListPage extends StatelessWidget {
           ),
         ],
       ),
-      body: Center(
-        child: CircularProgressIndicator(),
+      body: Consumer<Places>(
+        child: const Center(
+          child: const Text('No places!'),
+        ),
+        builder: (context, places, child) => places.items.length <= 0
+            ? child
+            : ListView.builder(
+                itemCount: places.items.length,
+                itemBuilder: (context, index) => ListTile(
+                  leading: CircleAvatar(
+                    backgroundImage: FileImage(places.items[index].image),
+                  ),
+                  title: Text(places.items[index].title),
+                  onTap: () {
+                    // go to detail page
+                  },
+                ),
+              ),
       ),
     );
   }

@@ -7,6 +7,10 @@ import 'package:image_picker/image_picker.dart';
 import 'package:path/path.dart';
 
 class ImageInput extends StatefulWidget {
+  final void Function(File pickedImage) onSelectImage;
+
+  ImageInput(this.onSelectImage);
+
   @override
   _ImageInputState createState() => _ImageInputState();
 }
@@ -39,7 +43,9 @@ class _ImageInputState extends State<ImageInput> {
       _storedImage = File(imageFile.path);
     });
     final String fileName = basename(imageFile.path);
-    await _storageService.saveFile(_storedImage, '$fileName');
+    final savedImage =
+        await _storageService.saveFile(_storedImage, '$fileName');
+    widget.onSelectImage(savedImage);
   }
 
   @override
