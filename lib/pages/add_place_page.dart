@@ -21,9 +21,9 @@ class _AddPlacePageState extends State<AddPlacePage> {
     _pickedImage = pickedImage;
   }
 
-  void _savePlace() {
+  Future<void> _savePlace() async {
     if (_titleController.text.isEmpty || _pickedImage == null) return;
-    Provider.of<Places>(context, listen: false)
+    await Provider.of<Places>(context, listen: false)
         .addPlace(_titleController.text, _pickedImage);
     Navigator.of(context).pop();
   }

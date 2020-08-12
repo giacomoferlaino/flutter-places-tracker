@@ -5,10 +5,10 @@ import 'package:flutter/foundation.dart';
 import 'place_location.dart';
 
 class Place {
-  final String id;
-  final String title;
-  final PlaceLocation location;
-  final File image;
+  String id;
+  String title;
+  PlaceLocation location;
+  File image;
 
   Place({
     @required this.id,
@@ -16,4 +16,19 @@ class Place {
     @required this.location,
     @required this.image,
   });
+
+  Place.parse(Map<String, dynamic> data) {
+    id = data['id'];
+    title = data['title'];
+    location = data['location'];
+    image = File(data['image']);
+  }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'id': id,
+      'title': title,
+      'image': image.path,
+    };
+  }
 }
