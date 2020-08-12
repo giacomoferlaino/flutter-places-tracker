@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 
 import './providers/places.dart';
 import './pages/places_list_page.dart';
+import './pages/add_place_page.dart';
 
 void main() {
   runApp(MyApp());
@@ -21,6 +22,9 @@ class MyApp extends StatelessWidget {
           accentColor: Colors.amber,
         ),
         home: PlacesListPage(),
+        routes: {
+          AddPlacePage.routeName: (context) => AddPlacePage(),
+        },
       ),
     );
   }

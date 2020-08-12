@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import './add_place_page.dart';
+
 class PlacesListPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -9,7 +11,9 @@ class PlacesListPage extends StatelessWidget {
         actions: [
           IconButton(
             icon: Icon(Icons.add),
-            onPressed: () {},
+            onPressed: () {
+              Navigator.of(context).pushNamed(AddPlacePage.routeName);
+            },
           ),
         ],
       ),
