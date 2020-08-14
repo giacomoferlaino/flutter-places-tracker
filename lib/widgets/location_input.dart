@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_places_tracker/services/location_service.dart';
 import 'package:get_it/get_it.dart';
 import 'package:location/location.dart';
+
+import '../pages/map_page.dart';
+import '../models/place_location.dart';
+import '../services/location_service.dart';
 
 class LocationInput extends StatefulWidget {
   @override
@@ -21,6 +24,19 @@ class _LocationInputState extends State<LocationInput> {
     setState(() {
       _previewImagePath = staticMapImageURL;
     });
+  }
+
+  Future<void> _selectOnMap() async {
+    final PlaceLocation selectedLocation =
+        await Navigator.of(context).push<PlaceLocation>(
+      MaterialPageRoute(
+        fullscreenDialog: true,
+        builder: (context) => MapPage(
+          isSelecting: true,
+        ),
+      ),
+    );
+    if (selectedLocation == null) return;
   }
 
   @override
@@ -62,7 +78,7 @@ class _LocationInputState extends State<LocationInput> {
               icon: Icon(Icons.map),
               label: const Text('Select on Map'),
               textColor: Theme.of(context).primaryColor,
-              onPressed: () {},
+              onPressed: _selectOnMap,
             ),
           ],
         ),

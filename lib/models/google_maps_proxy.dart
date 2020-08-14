@@ -1,9 +1,10 @@
 class GoogleMapsProxy {
+  static const double defaultMapZoom = 16;
   static String staticMap(
     String apiKey, {
     double latitude,
     double longitude,
-    int zoom = 16,
+    double zoom = defaultMapZoom,
     int width = 600,
     int height = 300,
   }) {
