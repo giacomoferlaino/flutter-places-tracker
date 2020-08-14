@@ -14,12 +14,12 @@ class _LocationInputState extends State<LocationInput> {
 
   Future<void> _getCurrentLocation() async {
     final LocationData locationData = await Location().getLocation();
-    final String staticMapImagePath = locationService.getLocationImagePath(
+    final String staticMapImageURL = locationService.getLocationImageURL(
       latitude: locationData.latitude,
       longitude: locationData.longitude,
     );
     setState(() {
-      _previewImagePath = staticMapImagePath;
+      _previewImagePath = staticMapImageURL;
     });
   }
 
@@ -43,7 +43,7 @@ class _LocationInputState extends State<LocationInput> {
                     textAlign: TextAlign.center,
                   ),
                 )
-              : Image.asset(
+              : Image.network(
                   _previewImagePath,
                   fit: BoxFit.cover,
                   width: double.infinity,

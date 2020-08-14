@@ -1,16 +1,17 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_places_tracker/services/location_service.dart';
 import 'package:get_it/get_it.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:provider/provider.dart';
 
+import './environment.dart';
 import './providers/places.dart';
 import './pages/places_list_page.dart';
 import './pages/add_place_page.dart';
 import './services/db_service.dart';
 import './services/device_storage_service.dart';
+import './services/location_service.dart';
 
 GetIt getIt = GetIt.instance;
 
@@ -24,7 +25,7 @@ Future<void> initServices() async {
     await dbService.init('places.db');
     return dbService;
   });
-  getIt.registerSingleton<LocationService>(LocationService());
+  getIt.registerSingleton<LocationService>(LocationService(Environment.apiKey));
 }
 
 void main() async {
