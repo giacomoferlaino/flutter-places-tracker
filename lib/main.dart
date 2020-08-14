@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_places_tracker/services/location_service.dart';
 import 'package:get_it/get_it.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:provider/provider.dart';
@@ -23,6 +24,7 @@ Future<void> initServices() async {
     await dbService.init('places.db');
     return dbService;
   });
+  getIt.registerSingleton<LocationService>(LocationService());
 }
 
 void main() async {
