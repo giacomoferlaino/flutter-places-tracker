@@ -18,9 +18,14 @@ class Place {
   });
 
   Place.parse(Map<String, dynamic> data) {
+    final PlaceLocation savedLocation = PlaceLocation(
+      latitude: data['loc_lat'],
+      longitude: data['loc_lng'],
+      address: data['address'],
+    );
     id = data['id'];
     title = data['title'];
-    location = data['location'];
+    location = savedLocation;
     image = File(data['image']);
   }
 
@@ -29,6 +34,9 @@ class Place {
       'id': id,
       'title': title,
       'image': image.path,
+      'loc_lat': location.latitude,
+      'loc_lng': location.longitude,
+      'address': location.address,
     };
   }
 }

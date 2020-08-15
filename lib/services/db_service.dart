@@ -9,7 +9,7 @@ class DBService {
 
   Future<void> _onCreate(Database db, int version) {
     return db.execute(
-        'CREATE TABLE ${Places.tableName} (id TEXT PRIMARY KEY, title TEXT, image TEXT)');
+        'CREATE TABLE ${Places.tableName} (id TEXT PRIMARY KEY, title TEXT, image TEXT, loc_lat REAL, loc_lng REAL, address TEXT)');
   }
 
   Future<void> init(String dbName) async {

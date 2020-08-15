@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '../models/place_location.dart';
 import '../widgets/image_input.dart';
 import '../widgets/location_input.dart';
 import '../providers/places.dart';
@@ -17,15 +18,22 @@ class AddPlacePage extends StatefulWidget {
 class _AddPlacePageState extends State<AddPlacePage> {
   final TextEditingController _titleController = TextEditingController();
   File _pickedImage;
+  PlaceLocation _pickedLocation;
 
   void _selectImage(File pickedImage) {
     _pickedImage = pickedImage;
   }
 
+  void _selectLocation(double latitude, double longitude) {
+    _pickedLocation = PlaceLocation(latitude: latitude, longitude: longitude);
+  }
+
   Future<void> _savePlace() async {
-    if (_titleController.text.isEmpty || _pickedImage == null) return;
+    if (_titleController.text.isEmpty ||
+        _pickedImage == null ||
+        _pickedLocation == null) return;
     await Provider.of<Places>(context, listen: false)
-        .addPlace(_titleController.text, _pickedImage);
+        .addPlace(_titleController.text, _pickedImage, _pickedLocation);
     Navigator.of(context).pop();
   }
 
@@ -51,7 +59,7 @@ class _AddPlacePageState extends State<AddPlacePage> {
                     SizedBox(height: 10),
                     ImageInput(_selectImage),
                     SizedBox(height: 10),
-                    LocationInput(),
+                    LocationInput(_selectLocation),
                   ],
                 ),
               ),

@@ -7,6 +7,10 @@ import '../models/place_location.dart';
 import '../services/location_service.dart';
 
 class LocationInput extends StatefulWidget {
+  final void Function(double latitude, double longitude) onSelectLocation;
+
+  LocationInput(this.onSelectLocation);
+
   @override
   _LocationInputState createState() => _LocationInputState();
 }
@@ -15,15 +19,27 @@ class _LocationInputState extends State<LocationInput> {
   LocationService locationService = GetIt.instance.get<LocationService>();
   String _previewImagePath;
 
-  Future<void> _getCurrentLocation() async {
-    final LocationData locationData = await Location().getLocation();
+  void _showPreview(double latitude, double longitude) {
     final String staticMapImageURL = locationService.getLocationImageURL(
-      latitude: locationData.latitude,
-      longitude: locationData.longitude,
+      latitude: latitude,
+      longitude: longitude,
     );
     setState(() {
       _previewImagePath = staticMapImageURL;
     });
+  }
+
+  Future<void> _getCurrentLocation() async {
+    try {
+      final LocationData locationData = await Location().getLocation();
+      _showPreview(locationData.latitude, locationData.longitude);
+      widget.onSelectLocation(
+        locationData.latitude,
+        locationData.longitude,
+      );
+    } catch (err) {
+      return;
+    }
   }
 
   Future<void> _selectOnMap() async {
@@ -37,6 +53,11 @@ class _LocationInputState extends State<LocationInput> {
       ),
     );
     if (selectedLocation == null) return;
+    _showPreview(selectedLocation.latitude, selectedLocation.longitude);
+    widget.onSelectLocation(
+      selectedLocation.latitude,
+      selectedLocation.longitude,
+    );
   }
 
   @override

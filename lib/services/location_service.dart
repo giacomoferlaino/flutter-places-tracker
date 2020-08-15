@@ -9,4 +9,12 @@ class LocationService {
     return GoogleMapsProxy.staticMap(_apiKey,
         latitude: latitude, longitude: longitude);
   }
+
+  Future<String> getLocationAddress(double latitude, double longitude) {
+    return GoogleMapsProxy.locationAddress(
+      _apiKey,
+      latitude: latitude,
+      longitude: longitude,
+    );
+  }
 }
