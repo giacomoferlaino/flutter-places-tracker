@@ -18,6 +18,10 @@ class Places with ChangeNotifier {
     return [..._items];
   }
 
+  Place findById(String id) {
+    return _items.firstWhere((element) => element.id == id);
+  }
+
   Future<void> _loadServices() async {
     if (_dbService == null) {
       _dbService = await GetIt.instance.getAsync<DBService>();

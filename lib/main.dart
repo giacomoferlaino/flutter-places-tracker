@@ -9,6 +9,7 @@ import './environment.dart';
 import './providers/places.dart';
 import './pages/places_list_page.dart';
 import './pages/add_place_page.dart';
+import './pages/place_detail_page.dart';
 import './services/db_service.dart';
 import './services/device_storage_service.dart';
 import './services/location_service.dart';
@@ -48,6 +49,7 @@ class MyApp extends StatelessWidget {
         home: PlacesListPage(),
         routes: {
           AddPlacePage.routeName: (context) => AddPlacePage(),
+          PlaceDetailPage.routeName: (context) => PlaceDetailPage(),
         },
       ),
     );

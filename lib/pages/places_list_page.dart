@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import './add_place_page.dart';
+import './place_detail_page.dart';
 import '../providers/places.dart';
 
 class PlacesListPage extends StatelessWidget {
@@ -42,7 +43,10 @@ class PlacesListPage extends StatelessWidget {
                           title: Text(places.items[index].title),
                           subtitle: Text(places.items[index].location.address),
                           onTap: () {
-                            // go to detail page
+                            Navigator.of(context).pushNamed(
+                              PlaceDetailPage.routeName,
+                              arguments: places.items[index].id,
+                            );
                           },
                         ),
                       ),

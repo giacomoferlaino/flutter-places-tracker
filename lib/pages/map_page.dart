@@ -58,15 +58,20 @@ class _MapPageState extends State<MapPage> {
           zoom: GoogleMapsProxy.defaultMapZoom,
         ),
         onTap: widget.isSelecting ? _selectLocation : null,
-        markers: _pickedLocation == null
+        markers: (_pickedLocation == null && widget.isSelecting)
             ? null
             : {
                 Marker(
                   markerId: MarkerId('m1'),
-                  position: LatLng(
-                    _pickedLocation.latitude,
-                    _pickedLocation.longitude,
-                  ),
+                  position: _pickedLocation != null
+                      ? LatLng(
+                          _pickedLocation.latitude,
+                          _pickedLocation.longitude,
+                        )
+                      : LatLng(
+                          widget.initialLocation.latitude,
+                          widget.initialLocation.longitude,
+                        ),
                 ),
               },
       ),
